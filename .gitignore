@@ -1,1 +1,4 @@
 ./prowess_mobile
+./.vs
+./vscode
+./db

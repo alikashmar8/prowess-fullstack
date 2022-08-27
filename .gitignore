@@ -1,7 +1,7 @@
 prowess_mobile/
 db/
-.vs/
-.vscode/
+/.vs/
+/.vscode/
 prowess-fullstack/.vs
 prowess-fullstack/.vscode
 prowess/.vs

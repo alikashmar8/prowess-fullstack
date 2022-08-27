@@ -1,4 +1,6 @@
-./prowess_mobile/
-./.vs/
-./vscode/
-./db/
+prowess_mobile/
+db/
+.vs/
+.vscode/
+prowess-fullstack/.vs
+prowess-fullstack/.vscode

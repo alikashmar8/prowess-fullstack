@@ -1,4 +1,6 @@
 prowess_mobile/
+prowess-backend/
+prowess-frontend/
 db/
 /.vs/
 /.vscode/

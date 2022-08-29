@@ -24,7 +24,7 @@ services:
           - my-network
     backend:
         restart: always
-        image: prowess/backend
+        image: prowess_backend
         container_name: prowess_backend
         ports:
           - 3000:3000
@@ -45,7 +45,7 @@ services:
           - my-network
 
         command: >
-            sh -c "/scripts/wait-for-it.sh mysql:3306 -- npm run start:dev"
+            sh -c "/scripts/wait-for-it.sh mysql:3306 -- npm run build && npm run start:prod"
     frontend:
         restart: always
         # image: prowess/frontend

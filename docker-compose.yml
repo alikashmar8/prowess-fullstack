@@ -52,9 +52,18 @@ services:
         container_name: prowess_frontend
         build: ./prowess-frontend/
         ports:
-          - "4200:80"
-        # # links:
-        # #   - backend
+          - 4200:80
+          - 80:80
+          - 433:433
+        volumes:
+         - ./certbot/www:/var/www/certbot/:ro
+          - ./certbot/conf/:/etc/nginx/ssl/:ro
+    certbot:
+      image: certbot/certbot:latest
+      volumes:
+        - ./certbot/www/:/var/www/certbot/:rw
+        - ./certbot/conf/:/etc/letsencrypt/:rw
+
 
 
 networks:

@@ -10,9 +10,9 @@ services:
           - "443:443"
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
-          - letsencrypt-certs:/etc/nginx/certs
-          - letsencrypt-vhost-d:/etc/nginx/vhost.d
-          - letsencrypt-html:/usr/share/nginx/html
+          - '/etc/nginx/certs'
+          - '/etc/nginx/vhost.d'
+          - '/usr/share/nginx/html'
 
     letsencrypt-proxy:
         image: jrcs/letsencrypt-nginx-proxy-companion
@@ -20,9 +20,9 @@ services:
         restart: always
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock:ro
-          - letsencrypt-certs:/etc/nginx/certs
-          - letsencrypt-vhost-d:/etc/nginx/vhost.d
-          - letsencrypt-html:/usr/share/nginx/html
+          # - letsencrypt-certs:/etc/nginx/certs
+          # - letsencrypt-vhost-d:/etc/nginx/vhost.d
+          # - letsencrypt-html:/usr/share/nginx/html
         volumes_from:
             - 'nginx-proxy'
         environment:

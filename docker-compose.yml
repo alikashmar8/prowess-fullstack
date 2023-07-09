@@ -88,13 +88,12 @@ services:
         # # links:
         # #   - backend
 
-
 networks:
   my-network:
     driver: bridge
   default:
-    external:
-      name: nginx-proxy
+    name: nginx-proxy
+    external: true
     
 volumes:
   db:

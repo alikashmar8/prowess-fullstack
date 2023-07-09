@@ -1,6 +1,35 @@
 version: '3.6'
 
 services:
+    nginx-proxy:
+        restart: always
+        image: jwilder/nginx-proxy
+        container_name: nginx-proxy
+        ports:
+          - "80:80"
+          - "443:443"
+        volumes:
+          - /var/run/docker.sock:/tmp/docker.sock:ro
+          - letsencrypt-certs:/etc/nginx/certs
+          - letsencrypt-vhost-d:/etc/nginx/vhost.d
+          - letsencrypt-html:/usr/share/nginx/html
+
+    letsencrypt-proxy:
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        container_name: letsencrypt-proxy
+        restart: always
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+          - letsencrypt-certs:/etc/nginx/certs
+          - letsencrypt-vhost-d:/etc/nginx/vhost.d
+          - letsencrypt-html:/usr/share/nginx/html
+        volumes_from:
+            - 'nginx-proxy'
+        environment:
+          - DEFAULT_EMAIL=alikashmar8@gmail.com
+          - NGINX_PROXY_CONTAINER=nginx-proxy
+
+
     mysql:
         restart: always
         image: mysql:8.0
@@ -52,7 +81,10 @@ services:
         container_name: prowess_frontend
         build: ./prowess-frontend/
         ports:
-          - "80:80"
+          - "4200:80"
+        environment:
+            VIRTUAL_HOST: 44.197.151.2
+            LETSENCRYPT_HOST: 44.197.151.2
         # # links:
         # #   - backend
 
@@ -60,6 +92,9 @@ services:
 networks:
   my-network:
     driver: bridge
+  default:
+    external:
+      name: nginx-proxy
     
 volumes:
   db:

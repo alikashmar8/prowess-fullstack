@@ -62,6 +62,9 @@ services:
             dockerfile: ./Dockerfile
         env_file:
           - ./prowess-backend/.env
+        environment:
+            VIRTUAL_HOST: 44.197.151.2
+            LETSENCRYPT_HOST: 44.197.151.2
         volumes:
             - ./prowess-backend:/backend
             - ./scripts:/scripts
@@ -91,9 +94,9 @@ services:
 networks:
   my-network:
     driver: bridge
-  default:
-    name: nginx-proxy
-    external: true
+  #default:
+  #  name: nginx-proxy
+  #  external: true
     
 volumes:
   db:
